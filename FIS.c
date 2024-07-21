@@ -42,10 +42,10 @@ int main(void){
 		system("cls");
 		if(answer == '1'){
 			switch(choice){
-				case '1':	break;
-				case '2':	break;
-				case '3':	break;
-				case '4':	break;
+				case '1':	AddFlightPlan();		break;
+				case '2':	DeleteFlightPlan();		break;
+				case '3':	ViewAllFlightPlan();	break;
+				case '4':	SearchFlightPlan();		break;
 				case '5': 	continue; break;
 				default : printf("You have entered an invalid option. Please try again.\n");	break;
 			}
@@ -81,7 +81,39 @@ void Accept(char* answer){
 }
 // function that creates a new flight plan by adding a node to the end
 void AddFlightPlan(){
-	//
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, 11);
+	
+	struct Passengers* newPass = (struct Passengers*)malloc(sizeof(struct Passengers));
+	
+	printf("\nEnter the passenger's ID number: ");
+	scanf("%d", &newPass->id);
+	printf("Enter the passenger's name: ");
+	scanf("%s", newPass->name);
+	printf("Enter the passenger's surname: ");
+	scanf("%s", newPass->surname);
+	printf("Enter the departure location of the flight: ");
+	scanf("%s", newPass->departure);
+	printf("Enter the destination of the flight: ");
+	scanf("%s", newPass->destination);
+	newPass->next = NULL;
+	
+	if(start == NULL){
+		start == newPass;
+	}
+	else{
+		temp = start;
+		while(temp->next != NULL){
+			temp = temp->next;
+		}
+		temp->next = newPass;
+	}
+	
+	SetConsoleTextAttribute(hConsole, 10);
+	printf("\n\n\t\tFlight plan has been succesfully added.\n\n");
+	SetConsoleTextAttribute(hConsole, 11);
+	system("pause");
+	system("cls");
 }
 // function that deletes a flight plan based on the user-entered ID number
 void DeleteFlightPlan(){
