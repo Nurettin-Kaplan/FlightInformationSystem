@@ -8,6 +8,15 @@
 #define BLUE 9
 #define LIGHTBLUE 11
 
+struct Passengers{
+	int id;
+	char name[20];
+	char surname[20];
+	char departure[20];
+	char destination[20];
+	struct Passengers* next;
+};
+
 void Menu(char* choice);
 void Accept(char* answer);
 
@@ -30,7 +39,7 @@ int main(void){
 				case '2':	break;
 				case '3':	break;
 				case '4':	break;
-				case '5': continue; break;
+				case '5': 	continue; break;
 				default : printf("You have entered an invalid option. Please try again.\n");	break;
 			}
 		}	
