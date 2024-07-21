@@ -17,8 +17,15 @@ struct Passengers{
 	struct Passengers* next;
 };
 
+struct Passengers* start = NULL;
+struct Passengers* temp = NULL;
+
 void Menu(char* choice);
 void Accept(char* answer);
+void AddFlightPlan();
+void DeleteFlightPlan();
+void ViewAllFlightPlan();
+void SearchFlightPlan();
 
 static char choice, answer;
 
@@ -71,4 +78,20 @@ void Accept(char* answer){
 	SetConsoleTextAttribute(hConsole, 11);
 	printf("Answer: ");
 	scanf(" %s", answer);
+}
+// function that creates a new flight plan by adding a node to the end
+void AddFlightPlan(){
+	//
+}
+// function that deletes a flight plan based on the user-entered ID number
+void DeleteFlightPlan(){
+	//
+}
+// function that displays all flight plans using the travel operation
+void ViewAllFlightPlan(){
+	//
+}
+// function that searches for a flight plan based on the user-entered ID number
+void SearchFlightPlan(){
+	//
 }
