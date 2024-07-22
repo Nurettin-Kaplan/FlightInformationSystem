@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<stdlib.h>
 #include<windows.h>
 #include<string.h>
 #define RED 12		// color definitions
@@ -86,20 +87,29 @@ void AddFlightPlan(){
 	
 	struct Passengers* newPass = (struct Passengers*)malloc(sizeof(struct Passengers));
 	
+	int id;
+	char name[20], surname[20], departure[20], destination[20];
+	
 	printf("\nEnter the passenger's ID number: ");
-	scanf("%d", &newPass->id);
+	scanf("%d", &id);
 	printf("Enter the passenger's name: ");
-	scanf("%s", newPass->name);
+	scanf("%s", &name);
 	printf("Enter the passenger's surname: ");
-	scanf("%s", newPass->surname);
+	scanf("%s", &surname);
 	printf("Enter the departure location of the flight: ");
-	scanf("%s", newPass->departure);
+	scanf("%s", &departure);
 	printf("Enter the destination of the flight: ");
-	scanf("%s", newPass->destination);
+	scanf("%s", &destination);
+	
+	newPass->id = id;
+	strcpy(newPass->name, name);
+	strcpy(newPass->surname, surname);
+	strcpy(newPass->departure, departure);
+	strcpy(newPass->destination, destination);
 	newPass->next = NULL;
 	
 	if(start == NULL){
-		start == newPass;
+		start = newPass;
 	}
 	else{
 		temp = start;
@@ -111,6 +121,7 @@ void AddFlightPlan(){
 	
 	SetConsoleTextAttribute(hConsole, 10);
 	printf("\n\n\t\tFlight plan has been succesfully added.\n\n");
+	
 	SetConsoleTextAttribute(hConsole, 11);
 	system("pause");
 	system("cls");
@@ -121,7 +132,29 @@ void DeleteFlightPlan(){
 }
 // function that displays all flight plans using the travel operation
 void ViewAllFlightPlan(){
-	//
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, 11);
+	
+	if(start == NULL){
+		SetConsoleTextAttribute(hConsole, 12);
+		printf("\n\nThere are no registered flight plans. Please add a flight plan through the menu.\n\n");
+		SetConsoleTextAttribute(hConsole, 11);
+	}
+	else{
+		temp = start;
+		while(temp->next != NULL){
+			printf("%d %s %s | %s => %s\n\n", temp->id, temp->name, temp->surname, temp->departure, temp->destination);
+			temp = temp->next;
+		}
+		printf("%d %s %s | %s => %s\n\n", temp->id, temp->name, temp->surname, temp->departure, temp->destination);
+		
+		SetConsoleTextAttribute(hConsole, 10);
+		printf("\n\n\t\tAll flight plans have been listed.\n\n");
+	}
+	
+	SetConsoleTextAttribute(hConsole, 11);
+	system("pause");
+	system("cls");
 }
 // function that searches for a flight plan based on the user-entered ID number
 void SearchFlightPlan(){
