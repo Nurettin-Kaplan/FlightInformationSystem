@@ -72,4 +72,3 @@ This project is licensed under the [MIT License](https://github.com/Nurettin-Kap
 ## Contact
 
 For any questions or issues, you can reach out via [email address](nurettinkaplaan@gmail.com).
-```
