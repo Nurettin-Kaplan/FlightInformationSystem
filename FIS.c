@@ -61,7 +61,7 @@ void Menu(char* choice){
 	printf("\n1- Add new flight plan\n"
 	"2- Cancel flight plan\n"
 	"3- View all flight plans\n"
-	"4- Search flight plan\n"
+	"4- Search for flight plan by ID number\n"
 	"5- Exit the program\n"
 	"Select the operation you want to perform: ");
 	scanf(" %s", choice);
@@ -112,7 +112,7 @@ void AddFlightPlan(){
 	}
 	
 	SetConsoleTextAttribute(hConsole, 10);
-	printf("\n\n\t\tFlight plan has been succesfully added.\n\n");
+	printf("\n\t\tFlight plan has been succesfully added.\n\n");
 	
 	SetConsoleTextAttribute(hConsole, 11);
 	system("pause");
@@ -134,11 +134,10 @@ void ViewAllFlightPlan(){
 	}
 	else{
 		temp = start;
-		while(temp->next != NULL){
-			printf("%d %s %s | %s => %s\n\n", temp->id, temp->name, temp->surname, temp->departure, temp->destination);
+		while(temp != NULL){
+			printf("\n%d %s %s | %s => %s\n", temp->id, temp->name, temp->surname, temp->departure, temp->destination);
 			temp = temp->next;
 		}
-		printf("%d %s %s | %s => %s\n\n", temp->id, temp->name, temp->surname, temp->departure, temp->destination);
 		
 		SetConsoleTextAttribute(hConsole, 10);
 		printf("\n\n\t\tAll flight plans have been listed.\n\n");
@@ -150,5 +149,43 @@ void ViewAllFlightPlan(){
 }
 // function that searches for a flight plan based on the user-entered ID number
 void SearchFlightPlan(){
-	//
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, 11);
+	
+	int id, isFind = 0;
+	
+	printf("\nEnter the ID number of the passenger whose flight plan you want to know: ");
+	scanf("%d", &id);
+	
+	temp = start;
+
+	if(temp == NULL){
+		SetConsoleTextAttribute(hConsole, 12);
+		printf("\n\n\tThere are no registered flight plans. Please add a flight plan through the menu.\n\n");
+		SetConsoleTextAttribute(hConsole, 11);
+	}
+	else{
+		while(temp != NULL){
+			if(temp->id == id){
+				isFind = 1;
+				break;
+			}
+			temp = temp->next;
+		}
+
+		if(isFind == 1){
+			printf("\n\n%d %s %s | %s => %s \n\n", temp->id, temp->name, temp->surname, temp->departure, temp->destination);
+			SetConsoleTextAttribute(hConsole, 10);
+			printf("\n\t\tThe passenger you are looking for has been found.\n\n");
+			SetConsoleTextAttribute(hConsole, 11);
+		}
+		else{
+			SetConsoleTextAttribute(hConsole, 12);
+			printf("\n\n\tNo passenger found with the entered ID number. Please try again.\n\n");
+			SetConsoleTextAttribute(hConsole, 11);
+		}	
+	}
+		
+	system("pause");
+	system("cls");
 }
