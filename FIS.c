@@ -16,6 +16,7 @@ struct Passengers{
 	char departure[20];
 	char destination[20];
 	struct Passengers* next;
+	struct Passengers* prev;
 };
 
 struct Passengers* start = NULL;
@@ -99,6 +100,7 @@ void AddFlightPlan(){
 	scanf("%s", newPass->destination);
 
 	newPass->next = NULL;
+	newPass->prev = NULL;
 	
 	if(start == NULL){
 		start = newPass;
@@ -109,6 +111,7 @@ void AddFlightPlan(){
 			temp = temp->next;
 		}
 		temp->next = newPass;
+		newPass->prev = temp;
 	}
 	
 	SetConsoleTextAttribute(hConsole, 10);
@@ -129,10 +132,11 @@ void DeleteFlightPlan(){
 	scanf("%d", &id);
 	
 	temp = start;
-
+	
+	// first the node to be deleted is found using the travel operation
 	if(temp == NULL){
 		SetConsoleTextAttribute(hConsole, 12);
-		printf("\n\n\tThere are no registered flight plans. Please add a flight plan through the menu.\n\n");
+		printf("\n\nThere are no registered flight plans. Please add a flight plan through the menu.\n\n");
 		SetConsoleTextAttribute(hConsole, 11);
 	}
 	else{
@@ -143,20 +147,43 @@ void DeleteFlightPlan(){
 			}
 			temp = temp->next;
 		}
-
-		if(isFind == 1){
-			free(temp);
-			SetConsoleTextAttribute(hConsole, 10);
-			printf("\n\t\tPassenger has been successfully deleted.\n\n");
-			SetConsoleTextAttribute(hConsole, 11);
-		}
-		else{
-			SetConsoleTextAttribute(hConsole, 12);
-			printf("\n\n\tNo passenger found with the entered ID number. Please try again.\n\n");
-			SetConsoleTextAttribute(hConsole, 11);
-		}	
 	}
+
+	if(isFind == 1){
+		// determines the position of the specified node
+		if(temp->next != NULL && temp->prev == NULL){
+			struct Passengers* secondPass = NULL;
+			secondPass = start->next;
+			free(start);
+			start = secondPass;
+		}
+		else if(temp->next != NULL && temp->prev != NULL){
+			struct Passengers* before = NULL;
+			struct Passengers* after = NULL;
+	
+			after = temp->next;
+			before = temp->prev;
+			free(temp);
+			before->next = after;
+		}
+		else if(temp->next == NULL && temp->prev != NULL){
+			struct Passengers* before = NULL;
+			
+			before = temp->prev;
+			free(before->next);
+			before->next = NULL;
+		}
 		
+		SetConsoleTextAttribute(hConsole, 10);
+		printf("\n\t\tPassenger has been successfully deleted.\n\n");
+	}
+	else{
+		SetConsoleTextAttribute(hConsole, 12);
+		printf("\n\n\tNo passenger found with the entered ID number. Please try again.\n\n");
+		SetConsoleTextAttribute(hConsole, 11);
+	}
+	
+	SetConsoleTextAttribute(hConsole, 11);	
 	system("pause");
 	system("cls");
 }
