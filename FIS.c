@@ -120,7 +120,45 @@ void AddFlightPlan(){
 }
 // function that deletes a flight plan based on the user-entered ID number
 void DeleteFlightPlan(){
-	//
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, 11);
+	
+	int id, isFind = 0;
+	
+	printf("\nEnter the ID number of the passenger whose flight plan you want to delete: ");
+	scanf("%d", &id);
+	
+	temp = start;
+
+	if(temp == NULL){
+		SetConsoleTextAttribute(hConsole, 12);
+		printf("\n\n\tThere are no registered flight plans. Please add a flight plan through the menu.\n\n");
+		SetConsoleTextAttribute(hConsole, 11);
+	}
+	else{
+		while(temp != NULL){
+			if(temp->id == id){
+				isFind = 1;
+				break;
+			}
+			temp = temp->next;
+		}
+
+		if(isFind == 1){
+			free(temp);
+			SetConsoleTextAttribute(hConsole, 10);
+			printf("\n\t\tPassenger has been successfully deleted.\n\n");
+			SetConsoleTextAttribute(hConsole, 11);
+		}
+		else{
+			SetConsoleTextAttribute(hConsole, 12);
+			printf("\n\n\tNo passenger found with the entered ID number. Please try again.\n\n");
+			SetConsoleTextAttribute(hConsole, 11);
+		}	
+	}
+		
+	system("pause");
+	system("cls");
 }
 // function that displays all flight plans using the travel operation
 void ViewAllFlightPlan(){
