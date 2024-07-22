@@ -87,20 +87,6 @@ void AddFlightPlan(){
 	
 	struct Passengers* newPass = (struct Passengers*)malloc(sizeof(struct Passengers));
 	
-	int id;
-	char name[20], surname[20], departure[20], destination[20];
-	
-//	printf("\nEnter the passenger's ID number: ");
-//	scanf("%d", &id);
-//	printf("Enter the passenger's name: ");
-//	scanf("%s", &name);
-//	printf("Enter the passenger's surname: ");
-//	scanf("%s", &surname);
-//	printf("Enter the departure location of the flight: ");
-//	scanf("%s", &departure);
-//	printf("Enter the destination of the flight: ");
-//	scanf("%s", &destination);
-	
 	printf("\nEnter the passenger's ID number: ");
 	scanf("%d", &newPass->id);
 	printf("Enter the passenger's name: ");
@@ -111,12 +97,7 @@ void AddFlightPlan(){
 	scanf("%s", newPass->departure);
 	printf("Enter the destination of the flight: ");
 	scanf("%s", newPass->destination);
-	
-//	newPass->id = id;
-//	strcpy(newPass->name, name);
-//	strcpy(newPass->surname, surname);
-//	strcpy(newPass->departure, departure);
-//	strcpy(newPass->destination, destination);
+
 	newPass->next = NULL;
 	
 	if(start == NULL){
